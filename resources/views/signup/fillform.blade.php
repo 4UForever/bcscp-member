@@ -64,7 +64,7 @@ body {
 .k-drop-images {
     display: flex;
     flex-flow: row wrap;
-    width: 100%;
+    /*width: 100%;*/
 }
 .k-drop-images div {
     border: 1px solid #ddd;
@@ -89,7 +89,7 @@ body {
     top: -10px;
     right: -10px;
 }
-.k-drop-images span.fa-times-circle {
+.k-drop-images span.remove {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -97,9 +97,15 @@ body {
     opacity: 0.5;
     font-size: 1.5em;
 }
+.k-drop-images span.remove:hover {
+    opacity: 1;
+}
 .k-drop-input {
     padding: 30px 0;
     width: 100%;
+}
+.k-drop:hover {
+    background-color: #eee;
 }
 </style>
 @endsection
@@ -327,15 +333,15 @@ messages: {
         // console.log('drop');
         var files = e.originalEvent.dataTransfer.files;
         // console.log('total='+files.length);
-        var dv_images = $(this).find("div.k-drop-images");
+        var dv_images = $(this).children("div.k-drop-images");
         upload(files, dv_images);
         return false;
     });
     $(".k-drop input[type='file']").on('change', function(e) {
         e.preventDefault();
         var files = event.target.files;
-        // console.log('total='+files.length);
-        var dv_images = $(this).parent(".k-drop").find("div.k-drop-images");
+        console.log('total='+files.length);
+        var dv_images = $(this).parents(".k-drop").children("div.k-drop-images");
         upload(files, dv_images);
     });
 
@@ -356,14 +362,27 @@ messages: {
             processData: false,
             contentType: false,
             beforeSend: function(){
-                console.log('loading');
                 $.each(files, function() {
                     dv_images.append('<div><span class="fa fa-spinner fa-pulse fa-4x fa-fw"></span></div>');
                 });
             }
         }).done(function(data){
             console.log(data);
+            if(data.status=="success"){
+                $.each(data.img, function(k, v) {
+                    var n = current_img+k;
+                    $(dv_images.children("div")[n]).html('<img src="'+v+'"><span class="fa fa-2x fa-times-circle remove"></span>');
+                });
+            }
         });
     }
+
+    $(".k-drop").on("click", ".remove", function(){
+        var div_delete = $(this).parent("div");
+        var pic_delete = div_delete.children("img").attr("src");
+        $.get("ajax-upload-delete", { del:pic_delete }, function(data) {
+            div_delete.remove();
+        });
+    });
     </script>
 @endsection

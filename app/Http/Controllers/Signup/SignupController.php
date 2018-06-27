@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Signup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //custom
+use File;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Provinces;
 use App\Amphures;
@@ -51,8 +52,8 @@ class SignupController extends Controller
 
     function ajaxUpload(Request $request) {
         $input = $request->all();
-        print_r($input);
-        /*if(!empty($input['files'])){
+        // print_r($input);
+        if(!empty($input['files'])){
             foreach($input['files'] as $file){
                 $allowedMimeTypes = ['image/jpeg','image/gif','image/png','image/bmp','image/svg+xml'];
                 $contentType = mime_content_type($file->getRealPath());
@@ -88,7 +89,18 @@ class SignupController extends Controller
                 'message' => 'Input file is not an image',
                 'img' => null
             ]);
-        }*/
+        }
+    }
+
+    function ajaxUploadDel(Request $request){
+        $input = $request->all();
+        if(File::exists($input['del'])) {
+            File::delete($input['del']);
+            $res = ['status'=>'success', 'message'=>'File "'.$input['del'].'" has been deleted'];
+        } else {
+            $res = ['status'=>'failure', 'message'=>'Not found this file "'.$input['del'].'"'];
+        }
+        return response()->json($res);
     }
 
     function randomStr($length=4) {

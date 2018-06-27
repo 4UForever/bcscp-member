@@ -20,3 +20,4 @@ Route::get('/fill-form', 'Signup\SignupController@create');
 //Ajax
 Route::get('/ajax-select', 'Signup\SignupController@ajaxSelect');
 Route::post('/ajax-upload', 'Signup\SignupController@ajaxUpload');
+Route::get('/ajax-upload-delete', 'Signup\SignupController@ajaxUploadDel');

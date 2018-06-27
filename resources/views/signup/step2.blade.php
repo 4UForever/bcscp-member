@@ -68,24 +68,18 @@
 <div class="form-group">
     <div class="col-md-12">
         <label class="control-label">ภาพถ่ายกิจการ / สถานประกอบการ :</label>
+        <!-- <div><img src="assets/images/uploads/20180623070721-xmuq.png"></div>
+        <div><img src="assets/images/uploads/20180623072322-vtke.png"></div>
+        <div><img src="assets/images/uploads/20180623072322-w5tm.jpg"></div>
+        <div><img src="assets/images/uploads/20180623070721-6ixf.png"><span class="fa fa-2x fa-times-circle remove"></span></div>
+        <div><span class="fa fa-spinner fa-pulse fa-4x fa-fw"></span></div> -->
         <div class="k-drop">
-            <div class="k-drop-images">
-                <div><img src="assets/images/uploads/20180623070721-xmuq.png"></div>
-                <div><img src="assets/images/uploads/20180623072322-vtke.png"></div>
-                <div><img src="assets/images/uploads/20180623072322-w5tm.jpg"></div>
-                <div><img src="assets/images/uploads/20180623070721-6ixf.png"><span class="fa fa-2x fa-times-circle"></span></div>
-                <div><span class="fa fa-spinner fa-pulse fa-4x fa-fw"></span></div>
-            </div>
+            <div class="k-drop-images"></div>
             <div class="k-drop-input">
                 <label for="bu_images">กรุณากดเพื่อเลือกไฟล์ หรือลากไฟล์มาวางที่นี่</label>
                 <input type="file" class="form-control" accept="image/*" name="bu_images[]" id="bu_images" data-limit="10" multiple>
             </div>
         </div>
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-md-12">
-        <button id="bt-test" type="button">test upload</button>
     </div>
 </div>
 <div class="form-group row">
