@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+Route::get('/', 'Signup\SignupController@index');
+Route::get('/fill-form', 'Signup\SignupController@create');
+
+//Ajax
+Route::get('/ajax-select', 'Signup\SignupController@ajaxSelect');
+Route::post('/ajax-upload', 'Signup\SignupController@ajaxUpload');
