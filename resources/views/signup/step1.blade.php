@@ -88,8 +88,8 @@
         <input type="text" name="facebook" class="form-control">
     </div>
     <div class="col-md-4">
-        <label class="control-label" for="line">Line ID :</label>
-        <input type="text" name="line" class="form-control">
+        <label class="control-label" for="line_id">Line ID :</label>
+        <input type="text" name="line_id" class="form-control">
     </div>
 </div>
 <div class="form-group row has-error">

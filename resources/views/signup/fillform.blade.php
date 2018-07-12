@@ -42,7 +42,7 @@ body {
     background-color: #dff0d8;
 }
 
-.k-drop {
+.easy-drop {
     width: 100%;
     min-height: 200px;
     border: 2px dashed #77bbcc;
@@ -54,19 +54,19 @@ body {
     align-items: center;
     flex-wrap: wrap;
 }
-.k-drop label {
+.easy-drop label {
     color: #337ab7;
     cursor: pointer;
 }
-.k-drop input[type='file'] {
+.easy-drop input[type='file'] {
     display: none;
 }
-.k-drop-images {
+.easy-drop-images {
     display: flex;
     flex-flow: row wrap;
     /*width: 100%;*/
 }
-.k-drop-images div {
+.easy-drop-images div {
     border: 1px solid #ddd;
     border-radius: 10px;
     width: 100px;
@@ -78,18 +78,18 @@ body {
     position: relative;
     background-color: #fff;
 }
-.k-drop-images div img {
+.easy-drop-images div img {
     max-width: 100%;
     max-height: 100%;
 }
-.k-drop-images div span.close {
+.easy-drop-images div span.close {
     position: absolute;
     background: red;
     color: white;
     top: -10px;
     right: -10px;
 }
-.k-drop-images span.remove {
+.easy-drop-images span.remove {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -97,14 +97,18 @@ body {
     opacity: 0.5;
     font-size: 1.5em;
 }
-.k-drop-images span.remove:hover {
+.easy-drop-images span.remove:hover {
     opacity: 1;
 }
-.k-drop-input {
+.easy-drop-input {
     padding: 30px 0;
     width: 100%;
 }
-.k-drop:hover {
+.easy-drop-input label img {
+    max-width: 100px;
+    opacity: 0.7;
+}
+.easy-drop:hover {
     background-color: #eee;
 }
 </style>
@@ -137,10 +141,10 @@ body {
                 <div id="step1" class="tab-pane fade">
                     @include('signup.step1')
                 </div>
-                <div id="step2" class="tab-pane fade in active">
+                <div id="step2" class="tab-pane fade">
                     @include('signup.step2')
                 </div>
-                <div id="step3" class="tab-pane fade">
+                <div id="step3" class="tab-pane fade in active">
                     @include('signup.step3')
                 </div>
                 <div id="step4" class="tab-pane fade">
@@ -321,7 +325,7 @@ messages: {
     });
 
 
-    $(".k-drop").on('dragover', function (e) {
+    $(".easy-drop").on('dragover', function (e) {
         e.preventDefault();
         // console.log('drag over');
     })
@@ -333,22 +337,33 @@ messages: {
         // console.log('drop');
         var files = e.originalEvent.dataTransfer.files;
         // console.log('total='+files.length);
-        var dv_images = $(this).children("div.k-drop-images");
-        upload(files, dv_images);
+        var dv_images = $(this).children("div.easy-drop-images");
+        var input_imgs = $(this).children("div.easy-drop-input").attr("data-input");
+        upload(files, dv_images, input_imgs);
         return false;
     });
-    $(".k-drop input[type='file']").on('change', function(e) {
+    $(".easy-drop input[type='file']").on('change', function(e) {
         e.preventDefault();
         var files = event.target.files;
         console.log('total='+files.length);
-        var dv_images = $(this).parents(".k-drop").children("div.k-drop-images");
-        upload(files, dv_images);
+        var dv_images = $(this).parents(".easy-drop").children("div.easy-drop-images");
+        var input_imgs = $(this).parents(".easy-drop").children("div.easy-drop-input").attr("data-input");
+        upload(files, dv_images, input_imgs);
     });
 
-    function upload(files, dv_images){
+    var csrfToken = $('input[name="_token"]').val();
+    setInterval(refreshToken, 3600000);
+    function refreshToken(){
+        $.get('refresh-csrf').done(function(data){
+            csrfToken = data; // the new token
+            $('input[name="_token"]').val(data);
+        });
+    }
+
+    function upload(files, dv_images, input_imgs){
         var current_img = dv_images.children("div").length;
         var formData = new FormData();
-        formData.append('_token', "{{ csrf_token() }}");
+        formData.append('_token', csrfToken);
         $.each(files, function(key, value) {
             // dv_images.append('<div><span class="fa fa-spinner fa-pulse fa-4x fa-fw"></span></div>');
             formData.append('files[]', value);
@@ -372,16 +387,19 @@ messages: {
                 $.each(data.img, function(k, v) {
                     var n = current_img+k;
                     $(dv_images.children("div")[n]).html('<img src="'+v+'"><span class="fa fa-2x fa-times-circle remove"></span>');
+                    $(dv_images.parents(".easy-drop")).append('<input type="hidden" name="'+input_imgs+'" value="'+v+'">');
                 });
             }
         });
     }
 
-    $(".k-drop").on("click", ".remove", function(){
+    $(".easy-drop").on("click", ".remove", function(){
         var div_delete = $(this).parent("div");
         var pic_delete = div_delete.children("img").attr("src");
+        var input_imgs = $(this).parents(".easy-drop").children("div.easy-drop-input").attr("data-input");
         $.get("ajax-upload-delete", { del:pic_delete }, function(data) {
             div_delete.remove();
+            $("input[name='"+input_imgs+"'][value='"+pic_delete+"']").remove();
         });
     });
     </script>

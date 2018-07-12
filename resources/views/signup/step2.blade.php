@@ -68,18 +68,37 @@
 <div class="form-group">
     <div class="col-md-12">
         <label class="control-label">ภาพถ่ายกิจการ / สถานประกอบการ :</label>
-        <!-- <div><img src="assets/images/uploads/20180623070721-xmuq.png"></div>
-        <div><img src="assets/images/uploads/20180623072322-vtke.png"></div>
-        <div><img src="assets/images/uploads/20180623072322-w5tm.jpg"></div>
-        <div><img src="assets/images/uploads/20180623070721-6ixf.png"><span class="fa fa-2x fa-times-circle remove"></span></div>
-        <div><span class="fa fa-spinner fa-pulse fa-4x fa-fw"></span></div> -->
-        <div class="k-drop">
-            <div class="k-drop-images"></div>
-            <div class="k-drop-input">
-                <label for="bu_images">กรุณากดเพื่อเลือกไฟล์ หรือลากไฟล์มาวางที่นี่</label>
-                <input type="file" class="form-control" accept="image/*" name="bu_images[]" id="bu_images" data-limit="10" multiple>
+        <div class="easy-drop">
+            <div class="easy-drop-images"></div>
+            <div class="easy-drop-input" data-input="bu_place_imgs[]">
+                <label for="bu_images"><img src="assets/images/drop_folder.png">กรุณากดเพื่อเลือกไฟล์ หรือลากไฟล์มาวางที่นี่</label>
+                <input type="file" class="form-control" accept="image/*" name="bu_images[]" data-limit="10" multiple>
             </div>
         </div>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-6">
+        <label class="control-label" for="bu_phone">เบอร์โทรศัพท์ :</label>
+        <input type="text" name="bu_phone" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label class="control-label" for="bu_email">อีเมล์ :</label>
+        <input type="text" name="bu_email" class="form-control">
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-4">
+        <label class="control-label" for="bu_website">เว็บไซต์ :</label>
+        <input type="text" name="bu_website" class="form-control">
+    </div>
+    <div class="col-md-4">
+        <label class="control-label" for="bu_facebook">Facebook :</label>
+        <input type="text" name="bu_facebook" class="form-control">
+    </div>
+    <div class="col-md-4">
+        <label class="control-label" for="bu_line_id">Line ID :</label>
+        <input type="text" name="bu_line_id" class="form-control">
     </div>
 </div>
 <div class="form-group row">
