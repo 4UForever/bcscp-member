@@ -7,7 +7,7 @@ This project is a part of BCSCP website (http://www.bcscp.org) in section member
 ### Feature
 - Registration step by step
 - Upload images unlimit
-- Auto resize images while upload
+- Auto resize and rename uploaded images
 - Form validation step by step
 - Able to pin location from google map
 - Upload files unlimit

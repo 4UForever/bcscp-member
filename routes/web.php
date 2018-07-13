@@ -15,7 +15,7 @@
     return view('welcome');
 });*/
 Route::get('/', 'Signup\SignupController@index');
-Route::get('/fill-form', 'Signup\SignupController@create');
+Route::get('/register', 'Signup\SignupController@create');
 
 //Ajax
 Route::get('/ajax-select', 'Signup\SignupController@ajaxSelect');

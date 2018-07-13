@@ -141,10 +141,10 @@ body {
                 <div id="step1" class="tab-pane fade">
                     @include('signup.step1')
                 </div>
-                <div id="step2" class="tab-pane fade">
+                <div id="step2" class="tab-pane fade in active">
                     @include('signup.step2')
                 </div>
-                <div id="step3" class="tab-pane fade in active">
+                <div id="step3" class="tab-pane fade">
                     @include('signup.step3')
                 </div>
                 <div id="step4" class="tab-pane fade">
@@ -382,7 +382,7 @@ messages: {
                 });
             }
         }).done(function(data){
-            console.log(data);
+            // console.log(data);
             if(data.status=="success"){
                 $.each(data.img, function(k, v) {
                     var n = current_img+k;

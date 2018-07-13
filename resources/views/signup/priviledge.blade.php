@@ -96,7 +96,7 @@ body {
             </div>
             <div class="col-md-6 margin-top text-center">
                 ยังไม่เป็นสมาชิก ต้องการสมัครสมาชิกใหม่ คลิก
-                <a href="fill-form" class="btn btn-success"><span class="fa fa-user-plus"></span> สมัครสมาชิก</a>
+                <a href="register" class="btn btn-success"><span class="fa fa-user-plus"></span> สมัครสมาชิก</a>
             </div>
         </div>
     </div>

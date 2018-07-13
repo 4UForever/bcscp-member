@@ -72,7 +72,7 @@
             <div class="easy-drop-images"></div>
             <div class="easy-drop-input" data-input="bu_place_imgs[]">
                 <label for="bu_images"><img src="assets/images/drop_folder.png">กรุณากดเพื่อเลือกไฟล์ หรือลากไฟล์มาวางที่นี่</label>
-                <input type="file" class="form-control" accept="image/*" name="bu_images[]" data-limit="10" multiple>
+                <input type="file" class="form-control" accept="image/*" name="bu_images[]" id="bu_images" data-limit="10" multiple>
             </div>
         </div>
     </div>
