@@ -92,6 +92,39 @@ class SignupController extends Controller
         }
     }
 
+    function ajaxUploadFile(Request $request) {
+        $input = $request->all();
+        // print_r($input);
+        if(!empty($input['file'])){
+            $extension = $input['file']->getClientOriginalExtension();
+            $allowed_extension = ['jpg','jpeg','png','gif','tif','tiff','pdf','doc','docx','xls','xlsx','rtf','odt','ods','txt'];
+            if(! in_array($extension, $allowed_extension) ){
+                return response()->json([
+                    'status' => 'failure',
+                    'message' => 'Input file type is not allowed',
+                    'file' => null
+                ]);
+            }
+            $max_width = 1000;
+            $destinationPath = "assets/files";
+            $fileName = date("YmdHis")."-".$this->randomStr().".".$input['file']->getClientOriginalExtension();
+            $input['file']->move($destinationPath, $fileName);
+            $res_files = $destinationPath."/".$fileName;
+            return response()->json([
+                'status' => 'success',
+                'message' => 'The file has been saved',
+                'file' => $res_files,
+                'file_type' => $input['file_type']
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'failure',
+                'message' => 'Input file type is not allowed',
+                'file' => null
+            ]);
+        }
+    }
+
     function ajaxUploadDel(Request $request){
         $input = $request->all();
         if(File::exists($input['del'])) {

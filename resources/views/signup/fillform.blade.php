@@ -141,13 +141,13 @@ body {
                 <div id="step1" class="tab-pane fade">
                     @include('signup.step1')
                 </div>
-                <div id="step2" class="tab-pane fade in active">
+                <div id="step2" class="tab-pane fade">
                     @include('signup.step2')
                 </div>
                 <div id="step3" class="tab-pane fade">
                     @include('signup.step3')
                 </div>
-                <div id="step4" class="tab-pane fade">
+                <div id="step4" class="tab-pane fade in active">
                     @include('signup.step4')
                 </div>
             </div>
@@ -339,7 +339,7 @@ messages: {
         // console.log('total='+files.length);
         var dv_images = $(this).children("div.easy-drop-images");
         var input_imgs = $(this).children("div.easy-drop-input").attr("data-input");
-        upload(files, dv_images, input_imgs);
+        dropUpload(files, dv_images, input_imgs);
         return false;
     });
     $(".easy-drop input[type='file']").on('change', function(e) {
@@ -348,7 +348,7 @@ messages: {
         console.log('total='+files.length);
         var dv_images = $(this).parents(".easy-drop").children("div.easy-drop-images");
         var input_imgs = $(this).parents(".easy-drop").children("div.easy-drop-input").attr("data-input");
-        upload(files, dv_images, input_imgs);
+        dropUpload(files, dv_images, input_imgs);
     });
 
     var csrfToken = $('input[name="_token"]').val();
@@ -360,7 +360,7 @@ messages: {
         });
     }
 
-    function upload(files, dv_images, input_imgs){
+    function dropUpload(files, dv_images, input_imgs){
         var current_img = dv_images.children("div").length;
         var formData = new FormData();
         formData.append('_token', csrfToken);
@@ -401,6 +401,39 @@ messages: {
             div_delete.remove();
             $("input[name='"+input_imgs+"'][value='"+pic_delete+"']").remove();
         });
+    });
+
+    $(".tab-content input[name='bu_upload_files']").on('change', function(e) {
+        e.preventDefault();
+        var file = event.target.files[0];
+        var file_type = $("select[name='bu_upload_file_type']").val();
+
+        var formData = new FormData();
+        formData.append('_token', csrfToken);
+        formData.append('file', file);
+        formData.append('file_type', file_type);
+        $.ajax({
+            url: 'ajax-upload-file',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            beforeSend: function(){
+                $(".bu_file_show").find(".uploading").show();
+            }
+        }).done(function(data){
+            // console.log(data);
+            if(data.status=="success"){
+                $(".bu_file_show").find(".uploading").hide();
+                $(".bu_file_show").find("ul").append('<li><a href="'+data.file+'" target="_blank">'+data.file_type+'</a><input type="hidden" name="bu_files[]" value="'+data.file+'"><input type="hidden" name="bu_files_type[]" value="'+data.file_type+'"> <a href="javascript:void(0);" class="bt-remove-file"><span class="fa fa-times-circle"></span></a></li>');
+            }
+        });
+    });
+
+    $(".tab-content").on('click', '.bt-remove-file', function(e) {
+        $(this).parent("li").remove();
     });
     </script>
 @endsection

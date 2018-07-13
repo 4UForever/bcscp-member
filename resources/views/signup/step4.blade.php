@@ -5,10 +5,16 @@
 </div>
 <div class="form-group row">
     <div class="col-md-12">
-        <label class="control-label" for="bu_name">คุณสามารถส่งเอกสารเพิ่มเติมตามข้อมูลด้านล่าง :</label>
+        <label class="control-label">คุณสามารถส่งเอกสารเพิ่มเติมตามข้อมูลด้านล่าง :</label>
+        <div class="row">
+            <div class="col-md-12 bu_file_show">
+                <ul></ul>
+                <div class="uploading" style="display: none;"><span class="fa fa-spinner fa-pulse fa-fw"></span> กำลังอัพโหลด ...</div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
-                <select name="bu_file_type" class="form-control">
+                <select name="bu_upload_file_type" class="form-control">
                     <option value="บัตรประชาชน/หนังสือเดินทาง" selected="selected">บัตรประชาชน/หนังสือเดินทาง</option>
                     <option value="หนังสือรับรองทางราชการหรือเอกชน">หนังสือรับรองทางราชการหรือเอกชน</option>
                     <option value="หนังสือรับรองบริษัท">หนังสือรับรองบริษัท</option>
@@ -17,7 +23,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <input type="file" class="form-control" name="bu_files[]" data-limit="10" multiple>
+                <input type="file" class="form-control" name="bu_upload_files">
             </div>
         </div>
     </div>
