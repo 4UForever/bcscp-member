@@ -433,7 +433,11 @@ messages: {
     });
 
     $(".tab-content").on('click', '.bt-remove-file', function(e) {
-        $(this).parent("li").remove();
+        var file = $(this).parent("li").find("input[name='bu_files[]']").val();
+        var li = $(this).parent("li");
+        $.get("ajax-upload-delete", { del:file }, function(data) {
+            li.remove();
+        });
     });
     </script>
 @endsection

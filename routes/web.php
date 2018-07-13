@@ -22,7 +22,6 @@ Route::get('/ajax-select', 'Signup\SignupController@ajaxSelect');
 Route::post('/ajax-upload', 'Signup\SignupController@ajaxUpload');
 Route::get('/ajax-upload-delete', 'Signup\SignupController@ajaxUploadDel');
 Route::post('/ajax-upload-file', 'Signup\SignupController@ajaxUploadFile');
-Route::get('/ajax-upload-file-delete', 'Signup\SignupController@ajaxUploadFileDel');
 Route::get('refresh-csrf', function(){
     return csrf_token();
 });
