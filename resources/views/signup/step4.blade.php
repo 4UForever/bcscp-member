@@ -6,16 +6,48 @@
 <div class="form-group row">
     <div class="col-md-12">
         <label class="control-label" for="bu_name">คุณสามารถส่งเอกสารเพิ่มเติมตามข้อมูลด้านล่าง :</label>
-        <select name="bu_file_type" class="form-control">
-            <option value="บัตรประชาชน/หนังสือเดินทาง" selected="selected">บัตรประชาชน/หนังสือเดินทาง</option>
-            <option value="หนังสือรับรองทางราชการหรือเอกชน">หนังสือรับรองทางราชการหรือเอกชน</option>
-            <option value="หนังสือรับรองบริษัท">หนังสือรับรองบริษัท</option>
-            <option value="ใบทะเบียนภาษีมูลค่าเพิ่ม (แบบ ภ.พ.20)">ใบทะเบียนภาษีมูลค่าเพิ่ม (แบบ ภ.พ.20)</option>
-            <option value="เอกสารเพิ่มเติม">เอกสารเพิ่มเติม</option>
-        </select>
+        <div class="row">
+            <div class="col-md-6">
+                <select name="bu_file_type" class="form-control">
+                    <option value="บัตรประชาชน/หนังสือเดินทาง" selected="selected">บัตรประชาชน/หนังสือเดินทาง</option>
+                    <option value="หนังสือรับรองทางราชการหรือเอกชน">หนังสือรับรองทางราชการหรือเอกชน</option>
+                    <option value="หนังสือรับรองบริษัท">หนังสือรับรองบริษัท</option>
+                    <option value="ใบทะเบียนภาษีมูลค่าเพิ่ม (แบบ ภ.พ.20)">ใบทะเบียนภาษีมูลค่าเพิ่ม (แบบ ภ.พ.20)</option>
+                    <option value="เอกสารเพิ่มเติม">เอกสารเพิ่มเติม</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <input type="file" class="form-control" name="bu_files[]" data-limit="10" multiple>
+            </div>
+        </div>
     </div>
+</div>
+<div class="form-group row">
     <div class="col-md-12">
-        <input type="file" class="form-control" name="bu_files[]" data-limit="10" multiple>
+        <label for="">สิทธิ์ประโยชน์ของสมาชิก 3 ประเภท (กรุณาเลือกประเภทสมาชิก)</label>
+        <div class="radio">
+            <label><input type="radio" name="member_type" value="1">1. สมัครแบบธรรมดา</label>
+        </div>
+        <div class="alert alert-info">
+            ไม่มีค่าใช้จ่าย เพียงท่านกรอกแบบฟอร์มใน Application On Mobile เพื่อเก็บเป็นฐานข้อมูล โดยผู้สมัครจะได้รับสติ๊กเกอร์ติดหน้าร้านค้าต่างๆ
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="member_type" value="2">2. สมัครแบบที่ต้องการได้รับสิทธิพิเศษ</label>
+        </div>
+        <div class="alert alert-info">
+            ได้รับสิทธิในการท่องเที่ยวต่างๆ อาทิ “โครงการเที่ยวไทย ช่วยชาติ” ชำระค่าประกัน บัตรในราคา 499 บาท มีอายุบัตร 5 ปี และยังสามารถใช้บัตรร่วมกับโปรโมชั่น อื่นๆ ได้ ซึ่งบัตรสามารถใช้ในร้านสะดวกซื้อ
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="member_type" value="3">3. สมัครแบบเป็นสมาชิก 3 ปี</label>
+        </div>
+        <div class="alert alert-info">
+            ชำระค่าธรรมเนียม 3,888 บาท สมัครเพื่อเป็นสมาชิกวิสามัญ โดยผู้สมัครจะได้ ใบรับรองการเป็นสมาชิกวิสามัญ ได้รับการเชื่อมต่อทางธุรกิจ รวมถึงส่วนลดและสิทธิ พิเศษอื่นๆ อาทิเช่น งาน Road Show, Event หรือเดินทางต่างประเทศ รูปแบบนี้จะได้รับการ สนับสนุนและพิจารณาก่อนเป็นอันดับแรก
+        </div>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-12">
+        
     </div>
 </div>
 <div class="form-group row">
