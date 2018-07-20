@@ -51,9 +51,24 @@
         </div>
     </div>
 </div>
-<div class="form-group row">
+<div class="form-group row" id="dv-payment" style="display: none;">
     <div class="col-md-12">
-        
+        <label>กรุณาเลือกช่องทางการชำระเงิน (กรณีที่ท่านเลือกประเภทสมาชิกแบบที่ 2 หรือ 3)</label>
+        <div class="radio">
+            <label><input type="radio" name="pay_method" value="1">1. เงินสด / โอนเงินผ่านทางธนาคาร</label>
+        </div>
+        <div class="alert alert-info">
+            ชำระเงินโดยการโอนเงิน ผ่านทางบัญชี<b>ธนาคารกรุงเทพ</b><br><br>
+            <b>ชื่อปัญชี</b> : สมาคมการค้าธุรกิจบริการและผลิตภัณฑ์ผสมผสาน<br>
+            <b>เลขที่บัญชี</b> : 906-0-15261-9<br>
+            <b>สาขา</b> : เดอะ คริสตัล<br><br>
+            หลังจากชำระค่าสมาชิกเสร็จเรียบร้อย กรุณาส่งหลักฐานการชำเงินมาได้ที่<br>
+            - Email: info@bcscp.org<br>
+            - Tel.: 02-184-1808<br>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="pay_method" value="2">2. บัตรเดบิต / บัตรเครดิต</label>
+        </div>
     </div>
 </div>
 <div class="form-group row">

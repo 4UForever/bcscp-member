@@ -439,5 +439,13 @@ messages: {
             li.remove();
         });
     });
+
+    $(".tab-content").on('click', 'input[name="member_type"]', function(e) {
+        if( ($(this).val()=="2") ||($(this).val()=="3") ){
+            $("#dv-payment").slideDown();
+        } else {
+            $("#dv-payment").slideUp();
+        }
+    });
     </script>
 @endsection
