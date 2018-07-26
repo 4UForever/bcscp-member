@@ -61,7 +61,7 @@
         <input type="hidden" name="bu_geolat" value="">
         <input type="hidden" name="bu_geolon" value="">
         <div class="checkbox text-center">
-            <label><input type="checkbox" value=""> ยืนยันแผนที่ (ถูกต้องไหมตามหมุดที่ปัก)</label>
+            <label><input type="checkbox" value="true" name="bu_confirm_map"> ยืนยันแผนที่ (ถูกต้องไหมตามหมุดที่ปัก)</label>
         </div>
 	</div>
 </div>

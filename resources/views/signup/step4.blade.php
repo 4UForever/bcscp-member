@@ -80,6 +80,6 @@
         </div>
     </div>
     <div class="col-md-4 text-right">
-        <a data-toggle="pill" href="#step3" class="btn btn-success bt-previous"><i class="fa fa-chevron-circle-left"></i> ย้อนกลับ</a>
+        <a data-toggle="pill" data-current="4" class="btn btn-success bt-previous"><i class="fa fa-chevron-circle-left"></i> ย้อนกลับ</a>
     </div>
 </div>

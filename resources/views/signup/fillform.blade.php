@@ -3,6 +3,7 @@
 @section('css')
     @parent
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css">
 <style type="text/css">
 body {
     background-image: url(assets/images/background.jpg);
@@ -138,16 +139,16 @@ body {
                 <li><a data-toggle="pill" href="#step4">Menu 3</a></li>
             </ul> -->
             <div class="tab-content">
-                <div id="step1" class="tab-pane fade">
+                <div id="step1" class="tab-pane fade in active">
                     @include('signup.step1')
                 </div>
-                <div id="step2" class="tab-pane fade">
+                <div id="step2" class="tab-pane fade in">
                     @include('signup.step2')
                 </div>
-                <div id="step3" class="tab-pane fade">
+                <div id="step3" class="tab-pane fade in">
                     @include('signup.step3')
                 </div>
-                <div id="step4" class="tab-pane fade in active">
+                <div id="step4" class="tab-pane fade in">
                     @include('signup.step4')
                 </div>
             </div>
@@ -157,10 +158,17 @@ body {
 
 @section('js')
     @parent
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.th.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script> -->
     <script type="text/javascript">
         $(document).ready(function() {
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                language: 'th',
+                autoclose: true
+            });
             //autocomplete address
             $("select[name='province']").change(function(event) {
                 $.get("ajax-select", {'type':'amphures', 'province_id':$(this).val()}, function(data){
@@ -202,15 +210,13 @@ body {
                 if(!$( element ).parents("div[class^='col']").hasClass("has-feedback")){
                     $( element ).parents("div[class^='col']").addClass("has-feedback");
                 }
-                $( element ).parents("div[class^='col']").addClass("has-error").removeClass("has-success");
-                $( element ).parents("div[class^='col']").find("span.glyphicon").addClass("glyphicon-remove").removeClass("glyphicon-ok");
+                $( element ).parents("div[class^='col']").addClass("has-error");
+                $( element ).parents("div[class^='col']").find("span.glyphicon").addClass("glyphicon-remove");
             },
             unhighlight: function ( element, errorClass, validClass ) {
-                if(!$( element ).parents("div[class^='col']").hasClass("has-feedback")){
-                    $( element ).parents("div[class^='col']").addClass("has-feedback");
-                }
-                $( element ).parents("div[class^='col']").addClass("has-success").removeClass("has-error");
-                $( element ).parents("div[class^='col']").find("span.glyphicon").addClass("glyphicon-ok").removeClass("glyphicon-remove");
+                $( element ).parents("div[class^='col']").removeClass("has-feedback");
+                $( element ).parents("div[class^='col']").removeClass("has-error");
+                $( element ).parents("div[class^='col']").find("span.glyphicon").remove();
             }
         });
 
@@ -236,7 +242,7 @@ body {
                 mobile: {
                     required: true,
                     digits: true
-                },
+                }
             },
             messages: {
                 email: {
@@ -257,17 +263,29 @@ body {
                 mobile: {
                     required: "กรุณาระบุเบอร์โทรศัพท์",
                     digits: "กรุณาระบุเบอร์โทรศัพท์เป็นตัวเลขเท่านั้น"
-                },
+                }
             }
         };
         step[2] = {
             rules: {
                 bu_address: "required",
-                bu_province: "required"
+                bu_province: "required",
+                bu_amphure: "required",
+                bu_district: "required",
+                bu_postcode: "required",
+                bu_confirm_map: "required",
+                bu_phone: "required",
+                bu_email: "required"
             },
             messages: {
                 bu_address: "กรุณาระบุที่อยู่ที่ทำการ",
-                bu_province: "กรุณาระบุจังหวัดที่ทำการ"
+                bu_province: "กรุณาระบุจังหวัดที่ทำการ",
+                bu_amphure: "กรุณาระบุอำเภอที่ทำการ",
+                bu_district: "กรุณาระบุตำบลที่ทำการ",
+                bu_postcode: "กรุณาระบุรหัสไปรษณีย์ที่ทำการ",
+                bu_confirm_map: "กรุณายืนยันแผนที่ที่ทำการ",
+                bu_phone: "กรุณาระบุเบอร์โทรศัพท์ที่ทำการ",
+                bu_email: "กรุณาระบุอีเมล์ที่ทำการ"
             }
         };
 /*
@@ -314,7 +332,28 @@ messages: {
     },
 }
 */
-    $("#bt-test").click(function(e){
+    var v;
+    $(".bt-next").click(function(e){
+        e.preventDefault();
+        var current = $(this).data("current");
+        console.log('current=', current);
+        if($("#fSignup").validate(step[current]).form()){
+            $(".tab-content").children('div').removeClass('active');
+            $("#step"+(current+1)).addClass('active');
+            $("#fSignup").validate(step[current]).destroy();
+        }
+    });
+    $(".bt-previous").click(function(e){
+        e.preventDefault();
+        var current = $(this).data("current");
+        console.log('current=', current);
+        if($("#fSignup").validate(step[current]).form()){
+            $(".tab-content").children('div').removeClass('active');
+            $("#step"+(current-1)).addClass('active');
+            $("#fSignup").validate(step[current]).destroy();
+        }
+    });
+    /*$("#bt-test").click(function(e){
         e.preventDefault();
         if($("#fSignup").validate(step2).form()){//$('#fSignup').validate(step1).valid()
             console.log('valid law');
@@ -322,7 +361,7 @@ messages: {
         } else {
             console.log('not valid');
         }
-    });
+    });*/
 
 
     $(".easy-drop").on('dragover', function (e) {

@@ -4,14 +4,13 @@
     </div>
 </div>
 <div class="form-group row">
-    <div class="col-md-6 has-success">
+    <div class="col-md-6">
         <label class="control-label" for="email">อีเมล์ (สำหรับแก้ไขข้อมูล) :</label>
         <input type="email" name="email" class="form-control" placeholder="email@yourdomain.com" value="">
     </div>
-    <div class="col-md-6 has-error">
+    <div class="col-md-6">
         <label class="control-label" for="password">รหัสผ่าน (สำหรับแก้ไขข้อมูล) :</label>
         <input type="password" name="password" class="form-control" placeholder="********">
-        <small class="text-danger">โปรดตรวจสอบ</small>
     </div>
 </div>
 <div class="form-group row">
@@ -34,8 +33,8 @@
 </div>
 <div class="form-group row">
     <div class="col-md-6">
-        <label class="control-label" for="birthdate">วัน/เดือน/ปีเกิด(เพื่อสิทธิประโยชน์ในวันเกิดของท่าน) :</label>
-        <input type="text" name="birthdate" class="form-control">
+        <label class="control-label" for="birthdate">วัน/เดือน/ปี ค.ศ. เกิด (เพื่อสิทธิประโยชน์ในวันเกิดของท่าน) :</label>
+        <input type="text" name="birthdate" class="form-control datepicker">
     </div>
     <div class="col-md-6">
         <label class="control-label" for="religion">ศาสนา :</label>
@@ -92,7 +91,7 @@
         <input type="text" name="line_id" class="form-control">
     </div>
 </div>
-<div class="form-group row has-error">
+<div class="form-group row">
     <div class="col-md-12">
         <label class="control-label" for="joined_type">ประเภทการสมัคร :</label>
         <div class="row">
@@ -107,7 +106,7 @@
                 </div>
             </div>
         </div>
-        <small class="text-danger">กรุณาระบุด้วย</small>
+        <!-- <small class="text-danger">กรุณาระบุด้วย</small> -->
     </div>
 </div>
 <div class="form-group row">
