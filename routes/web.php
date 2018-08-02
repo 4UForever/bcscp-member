@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+});*/
+Route::get('/', 'Signup\SignupController@index');
+Route::get('/register', 'Signup\SignupController@create');
+
+//Ajax
+Route::get('/ajax-select', 'Signup\SignupController@ajaxSelect');
+Route::post('/ajax-upload', 'Signup\SignupController@ajaxUpload');
+Route::get('/ajax-upload-delete', 'Signup\SignupController@ajaxUploadDel');
+Route::post('/ajax-upload-file', 'Signup\SignupController@ajaxUploadFile');
+Route::get('refresh-csrf', function(){
+    return csrf_token();
 });
