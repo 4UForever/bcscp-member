@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <select name="bu_upload_file_type" class="form-control">
                     <option value="บัตรประชาชน/หนังสือเดินทาง" selected="selected">บัตรประชาชน/หนังสือเดินทาง</option>
                     <option value="หนังสือรับรองทางราชการหรือเอกชน">หนังสือรับรองทางราชการหรือเอกชน</option>
@@ -25,6 +25,9 @@
             <div class="col-md-6">
                 <input type="file" class="form-control" name="bu_upload_files">
             </div>
+            <div class="col-md-2">
+                <button type="button" id="bt_upload_file" class="btn btn-primary"><span class="fa fa-upload"></span> Upload</button>
+            </div>
         </div>
     </div>
 </div>
@@ -32,7 +35,7 @@
     <div class="col-md-12">
         <label for="">สิทธิ์ประโยชน์ของสมาชิก 3 ประเภท (กรุณาเลือกประเภทสมาชิก)</label>
         <div class="radio">
-            <label><input type="radio" name="member_type" value="1">1. สมัครแบบธรรมดา</label>
+            <label><input type="radio" name="member_type" value="1" checked="checked">1. สมัครแบบธรรมดา</label>
         </div>
         <div class="alert alert-info">
             ไม่มีค่าใช้จ่าย เพียงท่านกรอกแบบฟอร์มใน Application On Mobile เพื่อเก็บเป็นฐานข้อมูล โดยผู้สมัครจะได้รับสติ๊กเกอร์ติดหน้าร้านค้าต่างๆ
@@ -55,7 +58,7 @@
     <div class="col-md-12">
         <label>กรุณาเลือกช่องทางการชำระเงิน (กรณีที่ท่านเลือกประเภทสมาชิกแบบที่ 2 หรือ 3)</label>
         <div class="radio">
-            <label><input type="radio" name="pay_method" value="1">1. เงินสด / โอนเงินผ่านทางธนาคาร</label>
+            <label><input type="radio" name="payment_method" value="1" checked="checked">1. เงินสด / โอนเงินผ่านทางธนาคาร</label>
         </div>
         <div class="alert alert-info">
             ชำระเงินโดยการโอนเงิน ผ่านทางบัญชี<b>ธนาคารกรุงเทพ</b><br><br>
@@ -67,7 +70,7 @@
             - Tel.: 02-184-1808<br>
         </div>
         <div class="radio">
-            <label><input type="radio" name="pay_method" value="2">2. บัตรเดบิต / บัตรเครดิต</label>
+            <label><input type="radio" name="payment_method" value="2">2. บัตรเดบิต / บัตรเครดิต</label>
         </div>
     </div>
 </div>
@@ -81,5 +84,6 @@
     </div>
     <div class="col-md-4 text-right">
         <a data-toggle="pill" data-current="4" class="btn btn-success bt-previous"><i class="fa fa-chevron-circle-left"></i> ย้อนกลับ</a>
+        <button type="submit" class="btn btn-success">ต่อไป <i class="fa fa-chevron-circle-right"></i></button>
     </div>
 </div>

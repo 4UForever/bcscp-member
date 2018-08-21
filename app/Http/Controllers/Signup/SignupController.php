@@ -17,7 +17,7 @@ class SignupController extends Controller
     	return view('signup/priviledge', []);
     }
 
-    function create() {
+    function getRegister() {
     	$provinces = Provinces::orderBy('name_th')->get(['id', 'name_th'])->toArray();
     	$province_id = $provinces[0]['id'];
     	$amphures = Amphures::where('province_id', $province_id)->orderBy('name_th')->get(['id','name_th'])->toArray();
@@ -26,6 +26,53 @@ class SignupController extends Controller
     	$district_id = $districts[0]['id'];
     	$zip_code = $districts[0]['zip_code'];
     	return view('signup/fillform', compact('provinces', 'province_id', 'amphures', 'amphure_id', 'districts', 'district_id', 'zip_code'));
+    }
+
+    function postRegister(Request $request) {
+        $input = $request->all();
+        echo "<pre>";print_r($input);echo "</pre>";
+        $insert = [
+            'email' => $input['email'],
+            'password' => $input['password'],
+            'prefix' => $input['prefix'],
+            'fname' => $input['fname'],
+            'lname' => $input['lname'],
+            'birthdate' => $input['birthdate'],
+            'religion' => $input['religion'],
+            'mobile' => $input['mobile'],
+            'facebook' => $input['facebook'],
+            'line_id' => $input['line_id'],
+            'address' => $input['address'],
+            'provinces_id' => $input['provinces_id'],
+            'amphures_id' => $input['amphures_id'],
+            'districts_id' => $input['districts_id'],
+            'postcode' => $input['postcode'],
+            'joined_type' => $input['joined_type'],
+            'bu_name' => $input['bu_name'],
+            'bu_products' => $input['bu_products'],
+            'bu_type' => $input['bu_type'],
+            'bu_detail' => $input['bu_detail'],
+            'bu_feature' => $input['bu_feature'],
+            'bu_market' => $input['bu_market'],
+            'bu_geolat' => $input['bu_geolat'],
+            'bu_geolon' => $input['bu_geolon'],
+            'bu_address' => $input['bu_address'],
+            'bu_provinces_id' => $input['bu_provinces_id'],
+            'bu_amphures_id' => $input['bu_amphures_id'],
+            'bu_districts_id' => $input['bu_districts_id'],
+            'bu_postcode' => $input['bu_postcode'],
+            'bu_taxid' => $input['bu_taxid'],
+            'bu_mobile' => $input['bu_mobile'],
+            'bu_email' => $input['bu_email'],
+            'bu_website' => $input['bu_website'],
+            'bu_facebook' => $input['bu_facebook'],
+            'bu_line_id' => $input['bu_line_id'],
+            'bu_product_imgs' => $input['bu_product_imgs'],
+            'bu_files' => $input['bu_files'],
+            'member_type' => $input['member_type'],
+            'payment_method' => $input['payment_method'],
+            'payment_status' => $input['payment_status']
+        ];
     }
 
     function ajaxSelect(Request $request) {

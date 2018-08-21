@@ -47,8 +47,8 @@
         <input type="text" name="address" class="form-control">
     </div>
     <div class="col-md-4">
-        <label class="control-label" for="province">จังหวัด :</label>
-        <select name="province" class="form-control">
+        <label class="control-label" for="provinces_id">จังหวัด :</label>
+        <select name="provinces_id" class="form-control">
             @foreach ($provinces as $province)
             <option value="{{ $province['id'] }}"{{ (($province_id==$province['id'])? " selected":"") }}>{{ $province['name_th'] }}</option>
             @endforeach
@@ -57,16 +57,16 @@
 </div>
 <div class="form-group row">
     <div class="col-md-4">
-        <label class="control-label" for="amphure">อำเภอ/เขต :</label>
-        <select name="amphure" class="form-control">
+        <label class="control-label" for="amphures_id">อำเภอ/เขต :</label>
+        <select name="amphures_id" class="form-control">
             @foreach ($amphures as $amphure)
             <option value="{{ $amphure['id'] }}"{{ (($amphure_id==$amphure['id'])? " selected":"") }}>{{ trim($amphure['name_th']) }}</option>
             @endforeach
         </select>
     </div>
     <div class="col-md-4">
-        <label class="control-label" for="district">ตำบล/แขวง :</label>
-        <select name="district" class="form-control">
+        <label class="control-label" for="districts_id">ตำบล/แขวง :</label>
+        <select name="districts_id" class="form-control">
             @foreach ($districts as $district)
             <option value="{{ $district['id'] }}"{{ (($district_id==$district['id'])? " selected":"") }} data-zipcode="{{ $district['zip_code'] }}">{{ trim($district['name_th']) }}</option>
             @endforeach

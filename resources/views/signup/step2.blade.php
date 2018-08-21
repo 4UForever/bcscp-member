@@ -7,7 +7,7 @@
 	<div class="col-md-12">
 		<label>สถานที่สำหรับติดต่อหรือส่งเอกสารจากทางสมาคมฯ</label>
 		<div class="checkbox">
-			<label><input type="checkbox" value="">ตามที่อยู่ผู้สมัครในหน้าแรก</label>
+			<label><input type="checkbox" value="" id="auto-address">ตามที่อยู่ผู้สมัครในหน้าแรก</label>
 		</div>
 	</div>
 </div>
@@ -17,8 +17,8 @@
         <input type="text" name="bu_address" class="form-control">
     </div>
     <div class="col-md-4">
-        <label class="control-label" for="bu_province">จังหวัด :</label>
-        <select name="bu_province" class="form-control">
+        <label class="control-label" for="bu_provinces_id">จังหวัด :</label>
+        <select name="bu_provinces_id" class="form-control">
             @foreach ($provinces as $province)
             <option value="{{ $province['id'] }}"{{ (($province_id==$province['id'])? " selected":"") }}>{{ $province['name_th'] }}</option>
             @endforeach
@@ -27,16 +27,16 @@
 </div>
 <div class="form-group row">
     <div class="col-md-4">
-        <label class="control-label" for="bu_amphure">อำเภอ/เขต :</label>
-        <select name="bu_amphure" class="form-control">
+        <label class="control-label" for="bu_amphures_id">อำเภอ/เขต :</label>
+        <select name="bu_amphures_id" class="form-control">
             @foreach ($amphures as $amphure)
             <option value="{{ $amphure['id'] }}"{{ (($amphure_id==$amphure['id'])? " selected":"") }}>{{ trim($amphure['name_th']) }}</option>
             @endforeach
         </select>
     </div>
     <div class="col-md-4">
-        <label class="control-label" for="bu_district">ตำบล/แขวง :</label>
-        <select name="bu_district" class="form-control">
+        <label class="control-label" for="bu_districts_id">ตำบล/แขวง :</label>
+        <select name="bu_districts_id" class="form-control">
             @foreach ($districts as $district)
             <option value="{{ $district['id'] }}"{{ (($district_id==$district['id'])? " selected":"") }} data-zipcode="{{ $district['zip_code'] }}">{{ trim($district['name_th']) }}</option>
             @endforeach
@@ -60,7 +60,9 @@
         <div id="map" style="height: 350px;"></div>
         <input type="hidden" name="bu_geolat" value="">
         <input type="hidden" name="bu_geolon" value="">
-        <div class="checkbox text-center">
+    </div>
+    <div class="col-md-12 text-center">
+        <div class="checkbox">
             <label><input type="checkbox" value="true" name="bu_confirm_map"> ยืนยันแผนที่ (ถูกต้องไหมตามหมุดที่ปัก)</label>
         </div>
 	</div>
@@ -79,8 +81,8 @@
 </div>
 <div class="form-group row">
     <div class="col-md-6">
-        <label class="control-label" for="bu_phone">เบอร์โทรศัพท์ :</label>
-        <input type="text" name="bu_phone" class="form-control">
+        <label class="control-label" for="bu_mobile">เบอร์โทรศัพท์ :</label>
+        <input type="text" name="bu_mobile" class="form-control">
     </div>
     <div class="col-md-6">
         <label class="control-label" for="bu_email">อีเมล์ :</label>
@@ -118,7 +120,11 @@
 <script src="https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyCPFKpkpD7LLtZvPtLyvWGyEWBXuIuSRR4"></script>
 <script>
     function initialize() {
-        var myLatLng = new google.maps.LatLng(13.76494141545393, 100.5382395983612);
+        var default_lat = 13.76494141545393;
+        var default_lng = 100.5382395983612;
+        $("input[name='bu_geolat']").val(default_lat);
+        $("input[name='bu_geolon']").val(default_lng);
+        var myLatLng = new google.maps.LatLng(default_lat, default_lng);
         var mapOptions = {
             zoom: 15,
             center: myLatLng
@@ -200,8 +206,8 @@
         });
     }
     function setLatLng(lat, lng){
-        document.getElementsByName('bu_geolat')[0].value = lat;
-        document.getElementsByName('bu_geolon')[0].value = lng;
+        $("input[name='bu_geolat']").val(lat);
+        $("input[name='bu_geolon']").val(lng);
         $('#pac-input').slideUp();
     }
     google.maps.event.addDomListener(window, 'load', initialize);

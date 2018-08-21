@@ -130,14 +130,8 @@ body {
                 <strong>Failure</strong> ddddd
             </div>
         </div> -->
-        <form id="fSignup" method="post" class="form-horizontal well margin-top">
+        <form id="fSignup" method="post" class="form-horizontal well margin-top" action="register-success">
             {{ csrf_field() }}
-            <!-- <ul class="nav nav-pills">
-                <li class="active"><a data-toggle="pill" href="#step1">Home</a></li>
-                <li><a data-toggle="pill" href="#step2">Menu 1</a></li>
-                <li><a data-toggle="pill" href="#step3">Menu 2</a></li>
-                <li><a data-toggle="pill" href="#step4">Menu 3</a></li>
-            </ul> -->
             <div class="tab-content">
                 <div id="step1" class="tab-pane fade in active">
                     @include('signup.step1')
@@ -170,19 +164,19 @@ body {
                 autoclose: true
             });
             //autocomplete address
-            $("select[name='province']").change(function(event) {
+            $("select[name='provinces_id']").change(function(event) {
                 $.get("ajax-select", {'type':'amphures', 'province_id':$(this).val()}, function(data){
-                    $("select[name='amphure']").html(data);
-                    $("select[name='amphure']").change();
+                    $("select[name='amphures_id']").html(data);
+                    $("select[name='amphures_id']").change();
                 });
             });
-            $("select[name='amphure']").change(function(event) {
+            $("select[name='amphures_id']").change(function(event) {
                 $.get("ajax-select", {'type':'districts', 'amphure_id':$(this).val()}, function(data){
-                    $("select[name='district']").html(data);
-                    $("select[name='district']").change();
+                    $("select[name='districts_id']").html(data);
+                    $("select[name='districts_id']").change();
                 });
             });
-            $("select[name='district']").change(function(event) {
+            $("select[name='districts_id']").change(function(event) {
                 // console.log($(this).find(':selected').attr('data-zipcode'));
                 var zip_code = $(this).find(':selected').attr('data-zipcode');
                 $("input[name='postcode']").val(((zip_code=="0")? "":zip_code));
@@ -235,9 +229,9 @@ body {
                 birthdate: "required",
                 religion: "required",
                 address: "required",
-                province: "required",
-                amphure: "required",
-                district: "required",
+                provinces_id: "required",
+                amphures_id: "required",
+                districts_id: "required",
                 postcode: "required",
                 mobile: {
                     required: true,
@@ -256,9 +250,9 @@ body {
                 birthdate: "กรุณาระบุวันเกิด",
                 religion: "กรุณาระบุศาสนา",
                 address: "กรุณาระบุที่อยู่",
-                province: "กรุณาระบุจังหวัด",
-                amphure: "กรุณาระบุอำเภอ",
-                district: "กรุณาระบุตำบล",
+                provinces_id: "กรุณาระบุจังหวัด",
+                amphures_id: "กรุณาระบุอำเภอ",
+                districts_id: "กรุณาระบุตำบล",
                 postcode: "กรุณาระบุรหัสไปรษณีย์",
                 mobile: {
                     required: "กรุณาระบุเบอร์โทรศัพท์",
@@ -269,74 +263,43 @@ body {
         step[2] = {
             rules: {
                 bu_address: "required",
-                bu_province: "required",
-                bu_amphure: "required",
-                bu_district: "required",
+                bu_provinces_id: "required",
+                bu_amphures_id: "required",
+                bu_districts_id: "required",
                 bu_postcode: "required",
                 bu_confirm_map: "required",
-                bu_phone: "required",
-                bu_email: "required"
+                bu_mobile: {
+                    required: true,
+                    digits: true
+                },
+                bu_email: {
+                    required: true,
+                    validEmail: true
+                }
             },
             messages: {
                 bu_address: "กรุณาระบุที่อยู่ที่ทำการ",
-                bu_province: "กรุณาระบุจังหวัดที่ทำการ",
-                bu_amphure: "กรุณาระบุอำเภอที่ทำการ",
-                bu_district: "กรุณาระบุตำบลที่ทำการ",
+                bu_provinces_id: "กรุณาระบุจังหวัดที่ทำการ",
+                bu_amphures_id: "กรุณาระบุอำเภอที่ทำการ",
+                bu_districts_id: "กรุณาระบุตำบลที่ทำการ",
                 bu_postcode: "กรุณาระบุรหัสไปรษณีย์ที่ทำการ",
                 bu_confirm_map: "กรุณายืนยันแผนที่ที่ทำการ",
-                bu_phone: "กรุณาระบุเบอร์โทรศัพท์ที่ทำการ",
-                bu_email: "กรุณาระบุอีเมล์ที่ทำการ"
+                bu_mobile: {
+                    required: "กรุณาระบุเบอร์โทรศัพท์ที่ทำการ",
+                    digits: "กรุณาระบุเบอร์โทรศัพท์เป็นตัวเลขเท่านั้น"
+                },
+                bu_email: {
+                    required: "กรุณาระบุอีเมล์ที่ทำการ",
+                    validEmail: "รูปแบบอีเมล์แอดเดรสไม่ถูกต้อง"
+                }
             }
         };
-/*
-rules: {
-    email: {
-        required: true,
-        validEmail: true
-    },
-    password: "required",
-    prefix: "required",
-    fname: "required",
-    lname: "required",
-    birthdate: "required",
-    religion: "required",
-    address: "required",
-    province: "required",
-    amphure: "required",
-    district: "required",
-    postcode: "required",
-    mobile: {
-        required: true,
-        digits: true
-    },
-},
-messages: {
-    email: {
-        required: "กรุณาระบุอีเมล์",
-        validEmail: "รูปแบบอีเมล์แอดเดรสไม่ถูกต้อง"
-    },
-    password: "กรุณาระบุรหัสผ่าน",
-    prefix: "กรุณาระบุคำนำหน้าชื่อ",
-    fname: "กรุณาระบุชื่อ",
-    lname: "กรุณาระบุนามสกุล",
-    birthdate: "กรุณาระบุวันเกิด",
-    religion: "กรุณาระบุศาสนา",
-    address: "กรุณาระบุที่อยู่",
-    province: "กรุณาระบุจังหวัด",
-    amphure: "กรุณาระบุอำเภอ",
-    district: "กรุณาระบุตำบล",
-    postcode: "กรุณาระบุรหัสไปรษณีย์",
-    mobile: {
-        required: "กรุณาระบุเบอร์โทรศัพท์",
-        digits: "กรุณาระบุเบอร์โทรศัพท์เป็นตัวเลขเท่านั้น"
-    },
-}
-*/
-    var v;
+        step[3] = {};
+        step[4] = {};
+
     $(".bt-next").click(function(e){
         e.preventDefault();
         var current = $(this).data("current");
-        console.log('current=', current);
         if($("#fSignup").validate(step[current]).form()){
             $(".tab-content").children('div').removeClass('active');
             $("#step"+(current+1)).addClass('active');
@@ -346,24 +309,44 @@ messages: {
     $(".bt-previous").click(function(e){
         e.preventDefault();
         var current = $(this).data("current");
-        console.log('current=', current);
-        if($("#fSignup").validate(step[current]).form()){
+        // if($("#fSignup").validate(step[current]).form()){
             $(".tab-content").children('div').removeClass('active');
             $("#step"+(current-1)).addClass('active');
             $("#fSignup").validate(step[current]).destroy();
+        // }
+    });
+
+    $("#auto-address").on("click", function(){
+        if($(this).is(':checked')){
+            $("input[name='bu_address']").val($("input[name='address']").val());
+            $("select[name='bu_provinces_id']").html($("select[name='provinces_id']").html());
+            $("select[name='bu_provinces_id']").val($("select[name='provinces_id']").val());
+            $("select[name='bu_amphures_id']").html($("select[name='amphures_id']").html());
+            $("select[name='bu_amphures_id']").val($("select[name='amphures_id']").val());
+            $("select[name='bu_districts_id']").html($("select[name='districts_id']").html());
+            $("select[name='bu_districts_id']").val($("select[name='districts_id']").val());
+            $("input[name='bu_postcode']").val($("input[name='postcode']").val());
         }
     });
-    /*$("#bt-test").click(function(e){
-        e.preventDefault();
-        if($("#fSignup").validate(step2).form()){//$('#fSignup').validate(step1).valid()
-            console.log('valid law');
-            $(this).attr("href", "#step2");
-        } else {
-            console.log('not valid');
-        }
-    });*/
+    $("select[name='bu_provinces_id']").on("change", function(event) {
+        $.get("ajax-select", {'type':'amphures', 'province_id':$(this).val()}, function(data){
+            $("select[name='bu_amphures_id']").html(data);
+            $("select[name='bu_amphures_id']").change();
+        });
+    });
+    $("select[name='bu_amphures_id']").on("change", function(event) {
+        $.get("ajax-select", {'type':'districts', 'amphure_id':$(this).val()}, function(data){
+            $("select[name='bu_districts_id']").html(data);
+            $("select[name='bu_districts_id']").change();
+        });
+    });
+    $("select[name='bu_districts_id']").on("change", function(event) {
+        // console.log($(this).find(':selected').attr('data-zipcode'));
+        var zip_code = $(this).find(':selected').attr('data-zipcode');
+        $("input[name='bu_postcode']").val(((zip_code=="0")? "":zip_code));
+    });
 
-
+    /* Easy drop */
     $(".easy-drop").on('dragover', function (e) {
         e.preventDefault();
         // console.log('drag over');
@@ -428,6 +411,10 @@ messages: {
                     $(dv_images.children("div")[n]).html('<img src="'+v+'"><span class="fa fa-2x fa-times-circle remove"></span>');
                     $(dv_images.parents(".easy-drop")).append('<input type="hidden" name="'+input_imgs+'" value="'+v+'">');
                 });
+            } else {
+                $.each(files, function(k, v) {
+                    $(dv_images.children("div")[current_img]).remove();
+                });
             }
         });
     }
@@ -442,33 +429,38 @@ messages: {
         });
     });
 
-    $(".tab-content input[name='bu_upload_files']").on('change', function(e) {
+    $("#bt_upload_file").on('click', function(e) {
         e.preventDefault();
-        var file = event.target.files[0];
+        var file = $('input[name="bu_upload_files"]').prop('files')[0];
         var file_type = $("select[name='bu_upload_file_type']").val();
-
-        var formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('file', file);
-        formData.append('file_type', file_type);
-        $.ajax({
-            url: 'ajax-upload-file',
-            type: 'POST',
-            data: formData,
-            cache: false,
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            beforeSend: function(){
-                $(".bu_file_show").find(".uploading").show();
-            }
-        }).done(function(data){
-            // console.log(data);
-            if(data.status=="success"){
-                $(".bu_file_show").find(".uploading").hide();
-                $(".bu_file_show").find("ul").append('<li><a href="'+data.file+'" target="_blank">'+data.file_type+'</a><input type="hidden" name="bu_files[]" value="'+data.file+'"><input type="hidden" name="bu_files_type[]" value="'+data.file_type+'"> <a href="javascript:void(0);" class="bt-remove-file"><span class="fa fa-times-circle"></span></a></li>');
-            }
-        });
+        if(file){
+            $("#bt_upload_file").prop('disabled', true);
+            var formData = new FormData();
+            formData.append('_token', csrfToken);
+            formData.append('file', file);
+            formData.append('file_type', file_type);
+            $.ajax({
+                url: 'ajax-upload-file',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    $(".bu_file_show").find(".uploading").show();
+                }
+            }).done(function(data){
+                // console.log(data);
+                if(data.status=="success"){
+                    $(".bu_file_show").find(".uploading").hide();
+                    $(".bu_file_show").find("ul").append('<li><a href="'+data.file+'" target="_blank">'+data.file_type+'</a><input type="hidden" name="bu_files[]" value="'+data.file+'"><input type="hidden" name="bu_files_type[]" value="'+data.file_type+'"> <a href="javascript:void(0);" class="bt-remove-file"><span class="fa fa-times-circle"></span></a></li>');
+                } else {
+                    $(".bu_file_show").find(".uploading").hide();
+                }
+                $("#bt_upload_file").prop('disabled', false);
+            });
+        }
     });
 
     $(".tab-content").on('click', '.bt-remove-file', function(e) {
@@ -480,7 +472,7 @@ messages: {
     });
 
     $(".tab-content").on('click', 'input[name="member_type"]', function(e) {
-        if( ($(this).val()=="2") ||($(this).val()=="3") ){
+        if( ($("input[name='member_type']:checked").val()=="2") || ($("input[name='member_type']:checked").val()=="3") ){
             $("#dv-payment").slideDown();
         } else {
             $("#dv-payment").slideUp();
