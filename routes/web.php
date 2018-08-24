@@ -16,7 +16,7 @@
 });*/
 Route::get('/', 'Signup\SignupController@index');
 Route::get('/register', 'Signup\SignupController@getRegister');
-Route::post('/register-success', 'Signup\SignupController@postRegister');
+Route::any('/register-success', 'Signup\SignupController@postRegister');
 
 //Ajax
 Route::get('/ajax-select', 'Signup\SignupController@ajaxSelect');

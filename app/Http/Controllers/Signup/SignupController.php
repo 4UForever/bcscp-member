@@ -10,6 +10,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Provinces;
 use App\Amphures;
 use App\Districts;
+use App\Member;
 
 class SignupController extends Controller
 {
@@ -30,8 +31,17 @@ class SignupController extends Controller
 
     function postRegister(Request $request) {
         $input = $request->all();
-        echo "<pre>";print_r($input);echo "</pre>";
-        $insert = [
+        // echo "<pre>";print_r($input);echo "</pre>";
+        $bu_place_imgs = (isset($input['bu_place_imgs']))? json_encode($input['bu_place_imgs']):"";
+        $bu_product_imgs = (isset($input['bu_product_imgs']))? json_encode($input['bu_product_imgs']):"";
+        if(isset($input['bu_files'])){
+            $arrTmp = array();
+            foreach($input['bu_files'] as $k=>$v){
+                $arrTmp[$k] = [$input['bu_files'][$k]=>$input['bu_files_type'][$k]];
+            }
+            $bu_files = json_encode($arrTmp, JSON_UNESCAPED_UNICODE);
+        }
+        $arrInsert = [
             'email' => $input['email'],
             'password' => $input['password'],
             'prefix' => $input['prefix'],
@@ -67,12 +77,16 @@ class SignupController extends Controller
             'bu_website' => $input['bu_website'],
             'bu_facebook' => $input['bu_facebook'],
             'bu_line_id' => $input['bu_line_id'],
-            'bu_product_imgs' => $input['bu_product_imgs'],
-            'bu_files' => $input['bu_files'],
+            'bu_place_imgs' => $bu_place_imgs,//bu_place_imgs page 2
+            'bu_product_imgs' => $bu_product_imgs,//bu_product_imgs page 3
+            'bu_files' => $bu_files,//bu_files, bu_files_type page 4
             'member_type' => $input['member_type'],
+            'active' => 1,
             'payment_method' => $input['payment_method'],
-            'payment_status' => $input['payment_status']
+            'payment_status' => '0'
         ];
+        // echo "<pre>";print_r($arrInsert);echo "</pre>";
+        Member::insert($arrInsert);
     }
 
     function ajaxSelect(Request $request) {
