@@ -1,0 +1,108 @@
+/*BCSCP custom style sheet*/
+body {
+    background-image: url(/assets/images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Kanit';
+}
+.margin-top {
+    margin-top: 10px;
+}
+.header-bgwhite {
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    text-shadow: -3px -1px 0 #fff, 3px -1px 0 #fff, -3px 1px 0 #fff, 3px 1px 0 #fff;
+    padding-bottom: 10px;
+}
+.sn-header {
+    text-align: center;
+    background-color: #d9edf7;
+    border-radius: 10px;
+    padding: 15px 0;
+}
+.sn-box {
+    padding: 20px;
+    font-size: 1.2em;
+    line-height: 2em;
+    background-color: #dff0d8;
+    border-radius: 10px;
+}
+.sn-box h3 {
+    margin-top: 0;
+}
+.sn-listtext {
+    font-size: 1.2em;
+    padding: 15px;
+    background-color: #dff0d8;
+}
+
+.easy-drop {
+    width: 100%;
+    min-height: 200px;
+    border: 2px dashed #77bbcc;
+    text-align: center;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.easy-drop label {
+    color: #337ab7;
+    cursor: pointer;
+}
+.easy-drop input[type='file'] {
+    display: none;
+}
+.easy-drop-images {
+    display: flex;
+    flex-flow: row wrap;
+    /*width: 100%;*/
+}
+.easy-drop-images div {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #fff;
+}
+.easy-drop-images div img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.easy-drop-images div span.close {
+    position: absolute;
+    background: red;
+    color: white;
+    top: -10px;
+    right: -10px;
+}
+.easy-drop-images span.remove {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    cursor: pointer;
+    opacity: 0.5;
+    font-size: 1.5em;
+}
+.easy-drop-images span.remove:hover {
+    opacity: 1;
+}
+.easy-drop-input {
+    padding: 30px 0;
+    width: 100%;
+}
+.easy-drop-input label img {
+    max-width: 100px;
+    opacity: 0.7;
+}
+.easy-drop:hover {
+    background-color: #eee;
+}

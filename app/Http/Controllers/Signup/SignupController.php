@@ -32,61 +32,65 @@ class SignupController extends Controller
     function postRegister(Request $request) {
         $input = $request->all();
         // echo "<pre>";print_r($input);echo "</pre>";
-        $bu_place_imgs = (isset($input['bu_place_imgs']))? json_encode($input['bu_place_imgs']):"";
-        $bu_product_imgs = (isset($input['bu_product_imgs']))? json_encode($input['bu_product_imgs']):"";
-        if(isset($input['bu_files'])){
-            $arrTmp = array();
-            foreach($input['bu_files'] as $k=>$v){
-                $arrTmp[$k] = [$input['bu_files'][$k]=>$input['bu_files_type'][$k]];
+        if(!empty($input)){
+            $bu_place_imgs = (isset($input['bu_place_imgs']))? json_encode($input['bu_place_imgs']):"";
+            $bu_product_imgs = (isset($input['bu_product_imgs']))? json_encode($input['bu_product_imgs']):"";
+            if(isset($input['bu_files'])){
+                $arrTmp = array();
+                foreach($input['bu_files'] as $k=>$v){
+                    $arrTmp[$k] = [$input['bu_files'][$k]=>$input['bu_files_type'][$k]];
+                }
+                $bu_files = json_encode($arrTmp, JSON_UNESCAPED_UNICODE);
             }
-            $bu_files = json_encode($arrTmp, JSON_UNESCAPED_UNICODE);
+            $arrInsert = [
+                'email' => $input['email'],
+                'password' => $input['password'],
+                'prefix' => $input['prefix'],
+                'fname' => $input['fname'],
+                'lname' => $input['lname'],
+                'birthdate' => $input['birthdate'],
+                'religion' => $input['religion'],
+                'mobile' => $input['mobile'],
+                'facebook' => $input['facebook'],
+                'line_id' => $input['line_id'],
+                'address' => $input['address'],
+                'provinces_id' => $input['provinces_id'],
+                'amphures_id' => $input['amphures_id'],
+                'districts_id' => $input['districts_id'],
+                'postcode' => $input['postcode'],
+                'joined_type' => $input['joined_type'],
+                'bu_name' => $input['bu_name'],
+                'bu_products' => $input['bu_products'],
+                'bu_type' => $input['bu_type'],
+                'bu_detail' => $input['bu_detail'],
+                'bu_feature' => $input['bu_feature'],
+                'bu_market' => $input['bu_market'],
+                'bu_geolat' => $input['bu_geolat'],
+                'bu_geolon' => $input['bu_geolon'],
+                'bu_address' => $input['bu_address'],
+                'bu_provinces_id' => $input['bu_provinces_id'],
+                'bu_amphures_id' => $input['bu_amphures_id'],
+                'bu_districts_id' => $input['bu_districts_id'],
+                'bu_postcode' => $input['bu_postcode'],
+                'bu_taxid' => $input['bu_taxid'],
+                'bu_mobile' => $input['bu_mobile'],
+                'bu_email' => $input['bu_email'],
+                'bu_website' => $input['bu_website'],
+                'bu_facebook' => $input['bu_facebook'],
+                'bu_line_id' => $input['bu_line_id'],
+                'bu_place_imgs' => $bu_place_imgs,//bu_place_imgs page 2
+                'bu_product_imgs' => $bu_product_imgs,//bu_product_imgs page 3
+                'bu_files' => $bu_files,//bu_files, bu_files_type page 4
+                'member_type' => $input['member_type'],
+                'active' => 1,
+                'payment_method' => $input['payment_method'],
+                'payment_status' => '0'
+            ];
+            // echo "<pre>";print_r($arrInsert);echo "</pre>";
+            Member::insert($arrInsert);
+        } else {
+            return view('signup/success');
         }
-        $arrInsert = [
-            'email' => $input['email'],
-            'password' => $input['password'],
-            'prefix' => $input['prefix'],
-            'fname' => $input['fname'],
-            'lname' => $input['lname'],
-            'birthdate' => $input['birthdate'],
-            'religion' => $input['religion'],
-            'mobile' => $input['mobile'],
-            'facebook' => $input['facebook'],
-            'line_id' => $input['line_id'],
-            'address' => $input['address'],
-            'provinces_id' => $input['provinces_id'],
-            'amphures_id' => $input['amphures_id'],
-            'districts_id' => $input['districts_id'],
-            'postcode' => $input['postcode'],
-            'joined_type' => $input['joined_type'],
-            'bu_name' => $input['bu_name'],
-            'bu_products' => $input['bu_products'],
-            'bu_type' => $input['bu_type'],
-            'bu_detail' => $input['bu_detail'],
-            'bu_feature' => $input['bu_feature'],
-            'bu_market' => $input['bu_market'],
-            'bu_geolat' => $input['bu_geolat'],
-            'bu_geolon' => $input['bu_geolon'],
-            'bu_address' => $input['bu_address'],
-            'bu_provinces_id' => $input['bu_provinces_id'],
-            'bu_amphures_id' => $input['bu_amphures_id'],
-            'bu_districts_id' => $input['bu_districts_id'],
-            'bu_postcode' => $input['bu_postcode'],
-            'bu_taxid' => $input['bu_taxid'],
-            'bu_mobile' => $input['bu_mobile'],
-            'bu_email' => $input['bu_email'],
-            'bu_website' => $input['bu_website'],
-            'bu_facebook' => $input['bu_facebook'],
-            'bu_line_id' => $input['bu_line_id'],
-            'bu_place_imgs' => $bu_place_imgs,//bu_place_imgs page 2
-            'bu_product_imgs' => $bu_product_imgs,//bu_product_imgs page 3
-            'bu_files' => $bu_files,//bu_files, bu_files_type page 4
-            'member_type' => $input['member_type'],
-            'active' => 1,
-            'payment_method' => $input['payment_method'],
-            'payment_status' => '0'
-        ];
-        // echo "<pre>";print_r($arrInsert);echo "</pre>";
-        Member::insert($arrInsert);
     }
 
     function ajaxSelect(Request $request) {
