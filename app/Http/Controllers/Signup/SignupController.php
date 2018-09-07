@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //custom
 use File;
+use URL;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Provinces;
 use App\Amphures;
@@ -18,7 +19,8 @@ class SignupController extends Controller
     	return view('signup/priviledge', []);
     }
 
-    function getRegister() {
+    function getRegister(Request $request) {
+        $input = $request->all();
     	$provinces = Provinces::orderBy('name_th')->get(['id', 'name_th'])->toArray();
     	$province_id = $provinces[0]['id'];
     	$amphures = Amphures::where('province_id', $province_id)->orderBy('name_th')->get(['id','name_th'])->toArray();
@@ -26,13 +28,24 @@ class SignupController extends Controller
     	$districts = Districts::where('amphure_id', $amphure_id)->orderBy('name_th')->get(['id', 'name_th', 'zip_code'])->toArray();
     	$district_id = $districts[0]['id'];
     	$zip_code = $districts[0]['zip_code'];
-    	return view('signup/fillform', compact('provinces', 'province_id', 'amphures', 'amphure_id', 'districts', 'district_id', 'zip_code'));
+        $step = (isset($input['step']))? $input['step']:1;
+    	return view('signup/fillform', compact('provinces', 'province_id', 'amphures', 'amphure_id', 'districts', 'district_id', 'zip_code', 'step'));
     }
 
     function postRegister(Request $request) {
         $input = $request->all();
+        $arrTreepay = [
+            'pay_type' => 'PACA',
+            'currency' => '764',
+            'tp_langFlag' => 'th',
+            'site_cd' => 'P0000076T5',
+            'ret_url' => URL::to('/member/payment-status'),
+            'user_id' => '',
+            ''
+        ];
+        echo URL::to('/member/payment-status');
         // echo "<pre>";print_r($input);echo "</pre>";
-        if(!empty($input)){
+        /*if(!empty($input)){
             $bu_place_imgs = (isset($input['bu_place_imgs']))? json_encode($input['bu_place_imgs']):"";
             $bu_product_imgs = (isset($input['bu_product_imgs']))? json_encode($input['bu_product_imgs']):"";
             if(isset($input['bu_files'])){
@@ -87,10 +100,17 @@ class SignupController extends Controller
                 'payment_status' => '0'
             ];
             // echo "<pre>";print_r($arrInsert);echo "</pre>";
-            Member::insert($arrInsert);
+            // Member::insert($arrInsert);
+            if($input['payment_method']=="2"){
+                
+            }
         } else {
             return view('signup/success');
-        }
+        }*/
+    }
+
+    function regisSuccess() {
+        return view('signup/success');
     }
 
     function ajaxSelect(Request $request) {

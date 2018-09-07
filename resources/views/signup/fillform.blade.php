@@ -24,16 +24,16 @@
         <form id="fSignup" method="post" class="form-horizontal well margin-top" action="register-success">
             {{ csrf_field() }}
             <div class="tab-content">
-                <div id="step1" class="tab-pane fade in active">
+                <div id="step1" class="tab-pane fade in{{ ($step=='1')? ' active':'' }}">
                     @include('signup.step1')
                 </div>
-                <div id="step2" class="tab-pane fade in">
+                <div id="step2" class="tab-pane fade in{{ ($step=='2')? ' active':'' }}">
                     @include('signup.step2')
                 </div>
-                <div id="step3" class="tab-pane fade in">
+                <div id="step3" class="tab-pane fade in{{ ($step=='3')? ' active':'' }}">
                     @include('signup.step3')
                 </div>
-                <div id="step4" class="tab-pane fade in">
+                <div id="step4" class="tab-pane fade in{{ ($step=='4')? ' active':'' }}">
                     @include('signup.step4')
                 </div>
             </div>
